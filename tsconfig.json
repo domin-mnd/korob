@@ -1,0 +1,14 @@
+{
+  "extends": ["@domin-mnd/config/ts"],
+  "compilerOptions": {
+    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo",
+    "moduleResolution": "Bundler",
+    "outDir": "./bin",
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "tests"]
+}

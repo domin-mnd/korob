@@ -1,0 +1,24 @@
+import { type Config, createConfig, load } from "@/utils/config";
+import { run } from "@/utils/runner";
+import { defineCommand } from "citty";
+
+/**
+ * @param _config Configuration is unused. Function will fallback to file-based configs.
+ */
+export async function format(_config: Config = {}) {
+  // VSCode biome extension doesn't support config path detection
+  await run("biome format --write .");
+  await run("prettier --write .");
+}
+
+export default defineCommand({
+  meta: {
+    name: "format",
+    description: "Format project files.",
+  },
+  async run() {
+    const config = (await load()).config ?? {};
+    await createConfig(config);
+    return format(config);
+  },
+});

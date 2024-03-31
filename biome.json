@@ -1,0 +1,7 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.6.3/schema.json",
+  "extends": ["@domin-mnd/config/biome"],
+  "files": {
+    "ignore": ["bin", "dist"]
+  }
+}
