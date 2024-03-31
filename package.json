@@ -21,7 +21,7 @@
     "type": "git",
     "url": "git+https://github.com/domin-mnd/korob.git"
   },
-  "keywords": [],
+  "keywords": ["korob", "tsup", "npm"],
   "author": "domin-mnd",
   "license": "MIT",
   "bugs": {
