@@ -39,6 +39,31 @@ const note = (text: string) => colorize("green", text),
   mark = (text: string) => colorize("yellow", text),
   link = (text: string) => colorize("magenta", text);
 
+export async function korobConfigInit() {
+  const CONFIG_PATH = "korob.config.ts";
+  // Create korob.config.ts
+  if (existsSync(CONFIG_PATH))
+    return consola.warn(
+      `File ${mark(CONFIG_PATH)} already exists...`,
+    );
+
+  // Contents example
+  const contents: string[] = [
+    'import { defineConfig } from "korob";',
+    "",
+    "export default defineConfig({",
+    "  build: {",
+    "    dts: true,",
+    '    external: ["react"],',
+    "  },",
+    "});",
+    "",
+  ];
+
+  await writeFile(CONFIG_PATH, contents.join("\n"));
+  consola.success(`Created ${mark(CONFIG_PATH)}.`);
+}
+
 export async function configInit() {
   const configFiles = [
     ".prettierrc.json",
@@ -142,6 +167,8 @@ export async function vscodeInit(config: Config) {
 }
 
 export async function init() {
+  consola.start("Initializing...");
+  await korobConfigInit();
   const config = await configInit();
 
   const _shouldAddGitignore = await gitignoreInit();
