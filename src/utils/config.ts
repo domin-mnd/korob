@@ -5,7 +5,7 @@ import type { PartialConfiguration as BiomeConfig } from "@biomejs/wasm-nodejs";
 import biomeConfig from "@domin-mnd/config/biome";
 import { loadConfig } from "c12";
 import type { Config as PrettierConfig } from "prettier";
-import type { Options as TsupOptions } from "tsup";
+import type { Format, Options as TsupOptions } from "tsup";
 import type { InlineConfig as VitestConfig } from "vitest";
 
 export type TsupConfig = TsupOptions | TsupOptions[];
@@ -21,7 +21,16 @@ export interface KorobConfig {
   };
 }
 
+export interface Start
+  extends Omit<TsupOptions, "entry" | "entryPoints" | "format"> {
+  entry?: string;
+  entryPoints?: string;
+  format?: Format;
+}
+
 export interface Config extends KorobConfig {
+  /** `korob start` configuration. */
+  start?: Start;
   /** `korob build` & `korob dev` configuration. Identical to tsup options. */
   build?: TsupConfig;
   /** `korob lint` & `korob format` configuration. */
@@ -65,6 +74,13 @@ export async function load() {
           tabWidth: 2,
           semi: true,
         },
+      },
+      start: {
+        entry: "src/index.ts",
+        format: "cjs",
+        skipNodeModulesBundle: true,
+        dts: false,
+        sourcemap: false,
       },
       build: {
         entry: ["src/index.ts"],
