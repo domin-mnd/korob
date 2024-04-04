@@ -11,6 +11,7 @@ import { defineCommand } from "citty";
 import consola from "consola";
 import { colorize } from "consola/utils";
 import { addDevDependency } from "nypm";
+import { version } from "package.json";
 
 const vsc = {
   "[json]": {
@@ -61,7 +62,7 @@ export async function korobConfigInit() {
   ];
 
   await writeFile(CONFIG_PATH, contents.join("\n"));
-  consola.success(`Created ${mark(CONFIG_PATH)}.`);
+  consola.success(`Created ${note(CONFIG_PATH)}.\n`);
 }
 
 export async function configInit() {
@@ -77,6 +78,7 @@ export async function configInit() {
   consola.success(
     "Created configuration.",
     configFiles.map(value => `\n${note("+")} ${value}`).join(""),
+    "\n",
   );
   return config;
 }
@@ -116,31 +118,41 @@ export async function gitignoreInit() {
 }
 
 export async function dependencyInit() {
-  const dependencyInit = await consola.prompt(
-    "Install dependencies?",
+  const dependencyInit = (await consola.prompt(
+    "Which dependencies to install?",
     {
-      type: "confirm",
+      type: "multiselect",
+      options: [
+        {
+          label: "korob",
+          hint: "Scaffolds configuration",
+          value: `korob@${version}`,
+        },
+        {
+          label: "@biomejs/biome",
+          hint: "LSP server",
+          value: "@biomejs/biome@1.6.3",
+        },
+        {
+          label: "vitest",
+          hint: "Tests",
+          value: "vitest@1.4.0",
+        },
+      ],
     },
-  );
-  if (!dependencyInit) return false;
+  )) as unknown as string[];
+  if (!dependencyInit.length) return dependencyInit;
 
-  consola.start(
-    `Installing ${note("@biomejs/biome")} (for LSP server) & ${note(
-      "vitest",
-    )} (for tests)...`,
-  );
+  const dependencyList = dependencyInit.map(note).join(", ");
 
-  // Add @biomejs/biome & vitest
+  consola.start(`Installing ${dependencyList}...`);
+
   // Not using lspBin option instead because it's buggy
-  await addDevDependency(["@biomejs/biome", "vitest"], {
+  await addDevDependency(dependencyInit, {
     silent: true,
   });
 
-  consola.success(
-    `Installed ${note("@biomejs/biome")} & ${note(
-      "vitest",
-    )} successfully.`,
-  );
+  consola.success(`Installed ${dependencyList} successfully.\n`);
   return dependencyInit;
 }
 
@@ -162,20 +174,21 @@ export async function vscodeInit(config: Config) {
 
   mkdir(".vscode", { recursive: true });
   writeFile(".vscode/settings.json", stringify(vsc));
-  consola.success("Added .vscode/settings.json.");
+  consola.success("Added .vscode/settings.json.\n");
   return vscodeInit;
 }
 
 export async function init() {
   consola.start("Initializing...");
-  await korobConfigInit();
+  const dependencies = await dependencyInit();
+  if (dependencies.some(value => value.includes("korob")))
+    await korobConfigInit();
   const config = await configInit();
 
   const _shouldAddGitignore = await gitignoreInit();
   const shouldInitVscode = await vscodeInit(config);
-  const _shouldInstall = await dependencyInit();
 
-  consola.info("Initialization complete.");
+  consola.info("Initialization complete.\n");
 
   if (shouldInitVscode)
     consola.info(

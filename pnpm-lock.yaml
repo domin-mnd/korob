@@ -35,6 +35,9 @@ dependencies:
   tsup:
     specifier: 8.0.2
     version: 8.0.2(typescript@5.4.3)
+  typescript:
+    specifier: ^5.4.3
+    version: 5.4.3
   vitest:
     specifier: ^1.4.0
     version: 1.4.0(@types/node@20.11.30)(terser@5.30.0)
@@ -58,9 +61,6 @@ devDependencies:
   turbo:
     specifier: ^1.13.0
     version: 1.13.0
-  typescript:
-    specifier: ^5.4.3
-    version: 5.4.3
 
 packages:
 
@@ -1986,6 +1986,7 @@ packages:
     resolution: {integrity: sha512-KrPd3PKaCLr78MalgiwJnA25Nm8HAmdwN3mYUYZgG/wizIo9EainNVQI9/yDavtVFRN2h3k8uf3GLHuhDMgEHg==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: false
 
   /ufo@1.4.0:
     resolution: {integrity: sha512-Hhy+BhRBleFjpJ2vchUNN40qgkh0366FWJGqVLYBHev0vpHTrXSA0ryT+74UiW6KWsldNurQMKGqCm1M2zBciQ==}

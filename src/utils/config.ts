@@ -81,12 +81,14 @@ export async function load() {
         skipNodeModulesBundle: true,
         dts: false,
         sourcemap: false,
+        external: ["react", "react-dom"],
+        minify: false,
       },
       build: {
         entry: ["src/index.ts"],
         target: "node16",
         outDir: "dist",
-        treeshake: "smallest",
+        external: ["react", "react-dom"],
       },
       test: {
         coverage: {
