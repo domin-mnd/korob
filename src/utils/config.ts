@@ -5,9 +5,13 @@ import type { PartialConfiguration as BiomeConfig } from "@biomejs/wasm-nodejs";
 import biomeConfig from "@domin-mnd/config/biome";
 import { loadConfig } from "c12";
 import type { Config as PrettierConfig } from "prettier";
-import type { Format, Options as TsupOptions } from "tsup";
+import type { Format, Options as _TsupOptions } from "tsup";
 import type { InlineConfig as VitestConfig } from "vitest";
 
+type TsupOptions = Omit<
+  _TsupOptions,
+  "ignoreWatch" | "watch" | "silent"
+>;
 export type TsupConfig = TsupOptions | TsupOptions[];
 
 export interface KorobConfig {
@@ -22,9 +26,11 @@ export interface KorobConfig {
 }
 
 export interface Start
-  extends Omit<TsupOptions, "entry" | "entryPoints" | "format"> {
+  extends Omit<
+    _TsupOptions,
+    "silent" | "entry" | "entryPoints" | "format"
+  > {
   entry?: string;
-  entryPoints?: string;
   format?: Format;
 }
 

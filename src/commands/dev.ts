@@ -16,6 +16,7 @@ const devBuild = async (build: TsupOptions[]) =>
 const formatConfig = (build: TsupOptions[]) =>
   build.map(value => ({
     ...value,
+    watch: false,
     silent: true,
     plugins: [...(value.plugins ?? []), consolePlugin],
   }));

@@ -19,11 +19,7 @@ interface EntryPointsReturn {
 let argPath: string | undefined = undefined;
 export function entryPoint(config: Config): EntryPointsReturn {
   const executable = "index_1";
-  const entry =
-    argPath ??
-    config.start?.entry ??
-    config.start?.entryPoints ??
-    "src/index.ts";
+  const entry = argPath ?? config.start?.entry ?? "src/index.ts";
 
   if (!existsSync(entry)) {
     consola.error(`Entry file "${entry}" not found.`);
@@ -84,7 +80,6 @@ export async function start(config: Config = {}) {
   await tsupBuild({
     ...config.start,
     entry: entry.entry,
-    entryPoints: undefined,
     outDir: outDir,
     silent: true,
     async onSuccess() {

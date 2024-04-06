@@ -14,6 +14,7 @@ export async function build(config: Config = {}) {
   config.build.forEach(value =>
     tsupBuild({
       ...value,
+      watch: false,
       silent: true,
       plugins: [...(value.plugins ?? []), consolePlugin],
     }),
