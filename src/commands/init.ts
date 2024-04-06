@@ -138,6 +138,11 @@ export async function dependencyInit() {
           hint: "Tests",
           value: "vitest@1.4.0",
         },
+        {
+          label: "typescript",
+          hint: "Definition .d.ts build",
+          value: "typescript@5.4.4",
+        },
       ],
     },
   )) as unknown as string[];
@@ -172,9 +177,20 @@ export async function vscodeInit(config: Config) {
 
   if (!vscodeInit) return false;
 
-  mkdir(".vscode", { recursive: true });
-  writeFile(".vscode/settings.json", stringify(vsc));
-  consola.success("Added .vscode/settings.json.\n");
+  const previousConfig = existsSync(".vscode/settings.json")
+    ? await readFile(".vscode/settings.json")
+    : "{}";
+  const parsedPreviousConfig = JSON.parse(previousConfig.toString());
+
+  await mkdir(".vscode", { recursive: true });
+  await writeFile(
+    ".vscode/settings.json",
+    stringify({
+      ...parsedPreviousConfig,
+      ...vsc,
+    }),
+  );
+  consola.success(`Added ${note(".vscode/settings.json")}.\n`);
   return vscodeInit;
 }
 

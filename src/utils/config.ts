@@ -54,6 +54,7 @@ export async function load() {
 
   return loadConfig<Config>({
     name: "korob",
+    cwd: ".",
     dotenv: true,
     packageJson: true,
     defaultConfig: {

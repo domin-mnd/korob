@@ -82,6 +82,7 @@ export async function start(config: Config = {}) {
     entryPoints: undefined,
     outDir: outDir,
     silent: true,
+    minify: false,
     dts: false,
     async onSuccess() {
       const path = join(process.cwd(), outDir, entry.executable);

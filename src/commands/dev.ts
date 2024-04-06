@@ -1,30 +1,36 @@
 import { build } from "@/commands/build";
-import { type Config, createConfig, load } from "@/utils/config";
+import {
+  type Config,
+  type TsupOptions,
+  createConfig,
+  load,
+} from "@/utils/config";
 import { consolePlugin } from "@/utils/console";
 import { watch } from "chokidar";
 import { defineCommand } from "citty";
 import { build as tsupBuild } from "tsup";
 
+const devBuild = async (build: TsupOptions[]) =>
+  build.forEach(tsupBuild);
+
+const formatConfig = (build: TsupOptions[]) =>
+  build.map(value => ({
+    ...value,
+    silent: true,
+    plugins: [...(value.plugins ?? []), consolePlugin],
+  }));
+
 export async function dev(config: Config = {}) {
-  async function devBuild(config: Config) {
-    if (!Array.isArray(config.build))
-      config.build = [config?.build ?? {}];
-
-    config.build.forEach(value =>
-      tsupBuild({
-        ...value,
-        silent: true,
-        plugins: [...(value.plugins ?? []), consolePlugin],
-      }),
-    );
-  }
-
-  build();
+  build(config);
   const watcher = watch("src", {
     persistent: true,
   });
 
-  watcher.on("change", () => devBuild(config ?? {}));
+  const configBuild = Array.isArray(config.build)
+    ? config.build
+    : [config.build ?? {}];
+
+  watcher.on("change", () => devBuild(formatConfig(configBuild)));
 }
 
 export default defineCommand({
