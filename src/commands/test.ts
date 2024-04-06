@@ -7,6 +7,10 @@ import {
 import { defineCommand } from "citty";
 import consola from "consola";
 
+/**
+ * @experimental
+ * @alpha
+ */
 export async function test(config: Config = {}) {
   try {
     const { startVitest } = await import("vitest/node");

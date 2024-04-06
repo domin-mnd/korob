@@ -194,6 +194,10 @@ export async function vscodeInit(config: Config) {
   return vscodeInit;
 }
 
+/**
+ * @experimental
+ * @alpha
+ */
 export async function init() {
   consola.start("Initializing...");
   const dependencies = await dependencyInit();

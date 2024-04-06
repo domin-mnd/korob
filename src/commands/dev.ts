@@ -20,6 +20,10 @@ const formatConfig = (build: TsupOptions[]) =>
     plugins: [...(value.plugins ?? []), consolePlugin],
   }));
 
+/**
+ * @experimental
+ * @alpha
+ */
 export async function dev(config: Config = {}) {
   build(config);
   const watcher = watch("src", {

@@ -4,6 +4,8 @@ import { defineCommand } from "citty";
 
 /**
  * @param _config Configuration is unused. Function will fallback to file-based configs.
+ * @experimental
+ * @alpha
  */
 export async function format(_config: Config = {}) {
   // VSCode biome extension doesn't support config path detection

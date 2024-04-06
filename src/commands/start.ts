@@ -65,6 +65,11 @@ function clearNode(path: string, config: Config) {
 }
 
 const CACHE_DIR = ".korob";
+
+/**
+ * @experimental
+ * @alpha
+ */
 export async function start(config: Config = {}) {
   const entry = entryPoint(config);
   const outDir = join(CACHE_DIR, config.start?.outDir ?? "");

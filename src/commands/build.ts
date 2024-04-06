@@ -3,6 +3,10 @@ import { consolePlugin } from "@/utils/console";
 import { defineCommand } from "citty";
 import { build as tsupBuild } from "tsup";
 
+/**
+ * @experimental
+ * @alpha
+ */
 export async function build(config: Config = {}) {
   if (!Array.isArray(config.build))
     config.build = [config.build ?? {}];
