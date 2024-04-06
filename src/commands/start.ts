@@ -87,9 +87,9 @@ export async function start(config: Config = {}) {
     entryPoints: undefined,
     outDir: outDir,
     silent: true,
-    minify: false,
-    dts: false,
     async onSuccess() {
+      if (typeof config.start?.onSuccess === "function")
+        await config.start?.onSuccess();
       const path = join(process.cwd(), outDir, entry.executable);
       await executeNode(path, config);
       return () => {
