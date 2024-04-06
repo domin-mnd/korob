@@ -5,12 +5,19 @@ import {
   load,
 } from "@/utils/config";
 import { defineCommand } from "citty";
+import consola from "consola";
 
 export async function test(config: Config = {}) {
-  const { startVitest } = await import("vitest/node");
-  const vitest = await startVitest("test", undefined, config.test);
-  if (!vitest) return;
-  addKillEvent(vitest?.close);
+  try {
+    const { startVitest } = await import("vitest/node");
+    const vitest = await startVitest("test", undefined, config.test);
+    if (!vitest) return;
+    addKillEvent(vitest?.close);
+  } catch (_e) {
+    consola.error(
+      "Vitest is not installed. Please install `vitest@1.4.0` for tests",
+    );
+  }
 }
 
 export default defineCommand({

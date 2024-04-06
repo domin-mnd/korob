@@ -8,6 +8,7 @@ export default defineConfig([
     dts: true,
     minify: "terser",
     treeshake: "smallest",
+    external: ["vitest", "typescript"],
     splitting: true,
   },
   {
@@ -16,6 +17,7 @@ export default defineConfig([
     outDir: "bin",
     minify: "terser",
     treeshake: "smallest",
+    external: ["vitest", "typescript"],
     splitting: true,
   },
 ]);
