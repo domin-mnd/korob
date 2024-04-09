@@ -7,7 +7,7 @@
     <h2 align="center">Overview</h2>
   </strong>
   <p align="center">
-    Korob (Russian word for "box") is a zero-config development tool combining linter, formatter, bundler and tester.
+    Korob (Russian word for "box") is a simple development tool to help you build, format, test & run your apps and npm packages faster.
   </p>
 </div>
 <br>
