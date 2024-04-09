@@ -7,7 +7,7 @@
     <h2 align="center">Overview</h2>
   </strong>
   <p align="center">
-    Korob (Russian word for "box") is a package development tool combining linter, formatter, bundler and tester. It is essentially a wrapper around <a href="https://biomejs.dev/">biome</a>, <a href="https://prettier.io/">prettier</a>, <a href="https://tsup.egoist.dev/">tsup</a> & <a href="https://vitest.dev/">vitest</a> with some preconfigured settings.
+    Korob (Russian word for "box") is a zero-config development tool combining linter, formatter, bundler and tester.
   </p>
 </div>
 <br>
