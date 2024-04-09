@@ -3,7 +3,8 @@ import { run } from "@/utils/runner";
 import { defineCommand } from "citty";
 
 /**
- * @param _config Configuration is unused. Function will fallback to file-based configs.
+ * Lints and checks formatting of the project, similar to `korob lint`.
+ * @param {Config} _config - Configuration is unused. Function will fallback to file-based configs.
  * @experimental
  * @alpha
  */

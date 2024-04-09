@@ -196,6 +196,7 @@ export async function vscodeInit(config: Config) {
 }
 
 /**
+ * Initializes the project using the provided configuration, similar to `korob init`.
  * @experimental
  * @alpha
  */

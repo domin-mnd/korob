@@ -4,6 +4,8 @@ import { defineCommand } from "citty";
 import { build as tsupBuild } from "tsup";
 
 /**
+ * Builds the project, similar to `korob build`.
+ * @param {Config} config - General configuration object.
  * @experimental
  * @alpha
  */

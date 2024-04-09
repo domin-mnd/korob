@@ -8,6 +8,8 @@ import { defineCommand } from "citty";
 import consola from "consola";
 
 /**
+ * Tests the project, similar to `korob test`.
+ * @param {Config} config - General configuration object.
  * @experimental
  * @alpha
  */

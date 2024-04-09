@@ -22,6 +22,8 @@ const formatConfig = (build: TsupOptions[]) =>
   }));
 
 /**
+ * Starts the development server, similar to `korob dev`.
+ * @param {Config} config - General configuration object.
  * @experimental
  * @alpha
  */

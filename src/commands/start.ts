@@ -63,6 +63,8 @@ function clearNode(path: string, config: Config) {
 const CACHE_DIR = ".korob";
 
 /**
+ * Executes javascript/typescript files, similar to `korob start`.
+ * @param {Config} config - General configuration object.
  * @experimental
  * @alpha
  */
@@ -104,7 +106,7 @@ export default defineCommand({
       type: "positional",
       required: false,
       description: "Path to executable",
-      default: "src/index.ts",
+      valueHint: "src/index.ts",
     },
   },
   async run({ args }) {
