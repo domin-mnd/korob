@@ -1,7 +1,7 @@
 {
   "name": "korob",
-  "version": "0.2.0",
-  "description": "Package development tool.",
+  "version": "0.2.1",
+  "description": "Unified development tool.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
