@@ -42,7 +42,7 @@
   "engines": {
     "node": ">=16"
   },
-  "homepage": "https://github.com/domin-mnd/korob#readme",
+  "homepage": "https://korob.domin.pro/",
   "devDependencies": {
     "@domin-mnd/config": "^0.0.3",
     "@turbo/types": "^1.13.0",
