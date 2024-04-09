@@ -67,7 +67,7 @@ const CACHE_DIR = ".korob";
  * @alpha
  */
 export async function start(config: Config = {}) {
-  const entry = entryPoint(config);
+  const { entry, executable } = entryPoint(config);
   const outDir = join(CACHE_DIR, config.start?.outDir ?? "");
 
   function clear() {
@@ -79,13 +79,13 @@ export async function start(config: Config = {}) {
 
   await tsupBuild({
     ...config.start,
-    entry: entry.entry,
-    outDir: outDir,
+    entry,
+    outDir,
     silent: true,
     async onSuccess() {
       if (typeof config.start?.onSuccess === "function")
         await config.start?.onSuccess();
-      const path = join(process.cwd(), outDir, entry.executable);
+      const path = join(process.cwd(), outDir, executable);
       await executeNode(path, config);
       return () => {
         clearNode(path, config);
