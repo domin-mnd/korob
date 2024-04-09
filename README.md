@@ -3,7 +3,7 @@
 </p>
 <div align="center">
   <strong>
-    <h2 align="center">Overview</h2>
+    <h2 align="center">Korob</h2>
   </strong>
   <p align="center">
     <strong>Korob</strong>, derived from the Russian word for "box", is as a zero-config development tool designed to streamline the building, formatting, linting, testing and running of your npm packages and applications.
