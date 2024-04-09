@@ -1,13 +1,12 @@
 <p align="center">
   <img alt="korob" src="public/korob.svg" width="100" />
 </p>
-<br>
 <div align="center">
   <strong>
     <h2 align="center">Overview</h2>
   </strong>
   <p align="center">
-    <strong>Korob</strong>, derived from the Russian word for "box", serves as a zero-config development tool designed to streamline the building, formatting, linting, testing and running of your npm packages and applications.
+    <strong>Korob</strong>, derived from the Russian word for "box", is as a zero-config development tool designed to streamline the building, formatting, linting, testing and running of your npm packages and applications.
   </p>
 </div>
 <br>
@@ -27,9 +26,9 @@
 <br>
 <div align="center">
   <strong>
-    <h2 align="center">License</h2>
+    <h2 align="center">Open Source</h2>
   </strong>
   <p align="center">
-    This project is under <a href="https://choosealicense.com/licenses/mit/">MIT</a> license. You can freely use it for your own purposes.
+    Korob is <a href="https://choosealicense.com/licenses/mit/">MIT licensed</a> 💖
   </p>
 </div>

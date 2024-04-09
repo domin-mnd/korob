@@ -21,7 +21,19 @@
     "type": "git",
     "url": "git+https://github.com/domin-mnd/korob.git"
   },
-  "keywords": ["korob", "tsup", "npm"],
+  "keywords": [
+    "korob",
+    "tsup",
+    "vite",
+    "vitest",
+    "biome",
+    "prettier",
+    "format",
+    "lint",
+    "bundle",
+    "build",
+    "npm"
+  ],
   "author": "domin-mnd",
   "license": "MIT",
   "bugs": {
