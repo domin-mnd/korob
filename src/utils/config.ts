@@ -6,13 +6,12 @@ import biomeConfig from "@domin-mnd/config/biome";
 import { loadConfig } from "c12";
 import type { Config as PrettierConfig } from "prettier";
 import type { Format, Options as _TsupOptions } from "tsup";
-import type { InlineConfig as VitestConfig } from "vitest";
+import type { InlineConfig as TestConfig } from "vitest";
 
-type TsupOptions = Omit<
+export type BuildConfig = Omit<
   _TsupOptions,
   "ignoreWatch" | "watch" | "silent"
 >;
-export type TsupConfig = TsupOptions | TsupOptions[];
 
 export interface KorobConfig {
   /** `korob init` configuration. */
@@ -25,7 +24,7 @@ export interface KorobConfig {
   };
 }
 
-export interface Start
+export interface StartConfig
   extends Omit<
     _TsupOptions,
     "silent" | "entry" | "entryPoints" | "format"
@@ -36,16 +35,18 @@ export interface Start
 
 export interface Config extends KorobConfig {
   /** `korob start` configuration. */
-  start?: Start;
+  start?: StartConfig;
   /** `korob build` & `korob dev` configuration. Identical to tsup options. */
-  build?: TsupConfig;
+  build?: BuildConfig | BuildConfig[];
   /** `korob lint` & `korob format` configuration. */
   diagnostics?: {
+    /** Prettier formatter configuration. */
     prettier?: PrettierConfig;
+    /** Biome linter & formatter configuration configuration. */
     biome?: BiomeConfig;
   };
   /** `korob test` configuration. Identical to vitest options. */
-  test?: VitestConfig;
+  test?: TestConfig;
 }
 
 export async function load() {
@@ -149,15 +150,6 @@ export async function createConfig(config: Config) {
     prettierIgnore: join(".prettierignore"),
   };
 
-  // It shouldn't be async
-  // function exit() {
-  //   rmSync(join(""), { recursive: true, force: true });
-  //   process.exit(0);
-  // }
-
-  // Initialize killwatcher
-  // addKillEvent(exit);
-
   const biomeIgnored = [
       "**/*.tsx",
       "**/*.ts",
@@ -184,9 +176,4 @@ export async function createConfig(config: Config) {
   );
 }
 
-export type {
-  TsupOptions,
-  PrettierConfig,
-  BiomeConfig,
-  VitestConfig,
-};
+export type { PrettierConfig, BiomeConfig, TestConfig };

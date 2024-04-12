@@ -3,7 +3,14 @@ import { createDefineConfig } from "c12";
 
 export const defineConfig = createDefineConfig<Config>();
 
-export type { Config };
+export type {
+  Config,
+  StartConfig,
+  BuildConfig,
+  PrettierConfig,
+  BiomeConfig,
+  TestConfig,
+} from "@/utils/config";
 export { build } from "@/commands/build";
 export { dev } from "@/commands/dev";
 export { format } from "@/commands/format";

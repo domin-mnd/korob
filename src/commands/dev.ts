@@ -1,19 +1,14 @@
 import { build } from "@/commands/build";
-import {
-  type Config,
-  type TsupOptions,
-  createConfig,
-  load,
-} from "@/utils/config";
+import { type BuildConfig, type Config, load } from "@/utils/config";
 import { consolePlugin } from "@/utils/console";
 import { watch } from "@/utils/watcher";
 import { defineCommand } from "citty";
 import { build as tsupBuild } from "tsup";
 
-const devBuild = async (build: TsupOptions[]) =>
+const devBuild = async (build: BuildConfig[]) =>
   build.forEach(tsupBuild);
 
-const formatConfig = (build: TsupOptions[]) =>
+const formatConfig = (build: BuildConfig[]) =>
   build.map(value => ({
     ...value,
     watch: false,

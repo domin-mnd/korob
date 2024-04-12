@@ -1,4 +1,4 @@
-import type { TsupOptions } from "@/utils/config";
+import type { BuildConfig } from "@/utils/config";
 import consola from "consola";
 import { colorize } from "consola/utils";
 
@@ -6,7 +6,7 @@ let buildTimeStart = new Date().getTime();
 
 // tsup doesn't provide plugin type
 type Unboxed<T> = T extends (infer U)[] ? U : T;
-type Plugin = Exclude<Unboxed<TsupOptions["plugins"]>, undefined>;
+type Plugin = Exclude<Unboxed<BuildConfig["plugins"]>, undefined>;
 
 export const consolePlugin: Plugin = {
   name: "Custom logger",
