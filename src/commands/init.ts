@@ -6,11 +6,14 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { type Config, createConfig, load } from "@/utils/config";
+import {
+  addDevDependency,
+  detectPackageManager,
+} from "@/utils/package";
 import { stringify } from "@/utils/resolver";
 import { defineCommand } from "citty";
 import consola from "consola";
 import { colorize } from "consola/utils";
-import { addDevDependency } from "nypm";
 import { version } from "package.json";
 
 const vsc = {
@@ -118,6 +121,9 @@ export async function gitignoreInit() {
 }
 
 export async function dependencyInit() {
+  consola.info(
+    `Detected \`${await detectPackageManager()}\` package manager...`,
+  );
   const dependencyInit = (await consola.prompt(
     "Which dependencies to install?",
     {
@@ -153,9 +159,7 @@ export async function dependencyInit() {
   consola.start(`Installing ${dependencyList}...`);
 
   // Not using lspBin option instead because it's buggy
-  await addDevDependency(dependencyInit, {
-    silent: true,
-  });
+  await addDevDependency(dependencyInit);
 
   consola.success(`Installed ${dependencyList} successfully.\n`);
   return dependencyInit;
@@ -201,7 +205,7 @@ export async function vscodeInit(config: Config) {
  */
 export async function init() {
   consola.start("Initializing...");
-  const dependencies = await dependencyInit();
+  const dependencies = (await dependencyInit()) ?? [];
   if (dependencies.some(value => value.includes("korob")))
     await korobConfigInit();
   const config = await configInit();
