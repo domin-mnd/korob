@@ -30,7 +30,6 @@ export default defineCommand({
   },
   async run() {
     const config = (await load()).config ?? {};
-    await createConfig(config);
     return build(config);
   },
 });

@@ -95,7 +95,6 @@ export default defineCommand({
   },
   async run({ args }) {
     const config = (await load()).config ?? {};
-    await createConfig(config);
     argPath = args.path;
     return start(config);
   },
