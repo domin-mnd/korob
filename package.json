@@ -1,7 +1,7 @@
 {
   "name": "korob",
   "version": "0.2.2",
-  "description": "Unified development tool",
+  "description": "Unified development toolchain",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -14,7 +14,7 @@
     "build": "turbo run build:full",
     "build:full": "tsup --clean",
     "dev": "tsup --watch",
-    "prepack": "npm shrinkwrap && turbo run build:full",
+    "prepack": "npm shrinkwrap && npm run build:full",
     "test": "vitest"
   },
   "repository": {
