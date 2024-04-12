@@ -1,12 +1,12 @@
 {
   "name": "korob",
-  "version": "0.2.1",
-  "description": "Unified development tool.",
+  "version": "0.2.2",
+  "description": "Unified development tool",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "bin": {
-    "korob": "bin/cli.js"
+    "korob": "dist/cli.mjs"
   },
   "scripts": {
     "lint": "biome lint . && biome format . && prettier --check .",
@@ -14,7 +14,7 @@
     "build": "turbo run build:full",
     "build:full": "tsup --clean",
     "dev": "tsup --watch",
-    "prepack": "turbo run build:full",
+    "prepack": "npm shrinkwrap && turbo run build:full",
     "test": "vitest"
   },
   "repository": {
@@ -45,10 +45,11 @@
   "homepage": "https://korob.domin.pro/",
   "devDependencies": {
     "@domin-mnd/config": "^0.0.3",
-    "@turbo/types": "^1.13.0",
+    "@turbo/types": "^1.13.2",
     "@types/node": "^20",
+    "ignore": "^5.3.1",
     "terser": "^5.30.0",
-    "turbo": "^1.13.0"
+    "turbo": "^1.13.2"
   },
   "dependencies": {
     "@biomejs/biome": "1.6.3",
@@ -63,7 +64,7 @@
     "tsup": "8.0.2"
   },
   "optionalDependencies": {
-    "vitest": "1.4.0",
-    "typescript": "5.4.4"
+    "typescript": "5.4.4",
+    "vitest": "1.4.0"
   }
 }

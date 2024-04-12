@@ -1,12 +1,8 @@
-import { existsSync, rmSync } from "node:fs";
+import { execSync } from "node:child_process";
+import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
-import {
-  type Config,
-  addKillEvent,
-  createConfig,
-  load,
-} from "@/utils/config";
+import { type Config, createConfig, load } from "@/utils/config";
+import { hashAll } from "@/utils/hash";
 import { defineCommand } from "citty";
 import consola from "consola";
 import { build as tsupBuild } from "tsup";
@@ -16,9 +12,8 @@ interface EntryPointsReturn {
   executable: string;
 }
 
-let argPath: string | undefined = undefined;
+let argPath: string | undefined;
 export function entryPoint(config: Config): EntryPointsReturn {
-  const executable = "index_1";
   const entry = argPath ?? config.start?.entry ?? "src/index.ts";
 
   if (!existsSync(entry)) {
@@ -29,38 +24,28 @@ export function entryPoint(config: Config): EntryPointsReturn {
   argPath = undefined;
   return {
     entry: {
-      [executable]: entry,
+      [EXECUTABLE]: entry,
     },
-    executable,
+    executable: EXECUTABLE,
   };
 }
 
-let counter = 1;
-function executeNode(path: string, config: Config) {
+function getExecutable(path: string, config: Config) {
   switch (config.start?.format) {
     case "esm":
-      // Use search query to avoid caching import
-      return import(
-        `${pathToFileURL(path).toString()}.mjs?${counter++}`
-      );
+      return `${path}.mjs`;
     case "iife":
-      return require(`${path}.global.js`);
-  }
-  return require(`${path}.js`);
-}
-
-function clearNode(path: string, config: Config) {
-  switch (config.start?.format) {
-    case "iife":
-      return delete require.cache[
-        require.resolve(`${path}.global.js`)
-      ];
+      return `${path}.global.js`;
     case "cjs":
-      return delete require.cache[require.resolve(`${path}.js`)];
+      return `${path}.js`;
+    default:
+      return `${path}.js`;
   }
 }
 
-const CACHE_DIR = ".korob";
+// It should create hash folder i.e. node_modules/.cache/korob/c692793f10d54ffe8c40cb435961f0f7/index.js
+const EXECUTABLE = "index";
+const CACHE_DIR = join(process.cwd(), "node_modules/.cache/korob");
 
 /**
  * Executes javascript/typescript files, similar to `korob start`.
@@ -70,29 +55,28 @@ const CACHE_DIR = ".korob";
  */
 export async function start(config: Config = {}) {
   const { entry, executable } = entryPoint(config);
-  const outDir = join(CACHE_DIR, config.start?.outDir ?? "");
+  const hash = await hashAll();
+  const path = join(
+    CACHE_DIR,
+    hash,
+    config.start?.outDir ?? "",
+    executable,
+  );
+  const executablePath = getExecutable(path, config);
 
-  function clear() {
-    rmSync(join(CACHE_DIR), { recursive: true, force: true });
-    process.exit(0);
-  }
-
-  addKillEvent(clear);
+  if (existsSync(executablePath) && !config.start?.watch)
+    return execSync(`node ${executablePath}`, { stdio: "inherit" });
 
   await tsupBuild({
     ...config.start,
     entry,
-    outDir,
+    outDir: join(
+      CACHE_DIR,
+      config.start?.watch ? "watch" : hash,
+      config.start?.outDir ?? "",
+    ),
     silent: true,
-    async onSuccess() {
-      if (typeof config.start?.onSuccess === "function")
-        await config.start?.onSuccess();
-      const path = join(process.cwd(), outDir, executable);
-      await executeNode(path, config);
-      return () => {
-        clearNode(path, config);
-      };
-    },
+    onSuccess: `node ${executablePath}`,
   });
 }
 

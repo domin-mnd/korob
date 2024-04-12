@@ -87,7 +87,6 @@ export async function gitignoreInit() {
   // Append to .gitignore
   const ignored = [
     "dist",
-    ".korob",
     ".prettierrc.json",
     ".prettierignore",
     "biome.json",

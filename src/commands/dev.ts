@@ -6,7 +6,7 @@ import {
   load,
 } from "@/utils/config";
 import { consolePlugin } from "@/utils/console";
-import { watch } from "chokidar";
+import { watch } from "@/utils/watcher";
 import { defineCommand } from "citty";
 import { build as tsupBuild } from "tsup";
 
@@ -29,15 +29,11 @@ const formatConfig = (build: TsupOptions[]) =>
  */
 export async function dev(config: Config = {}) {
   build(config);
-  const watcher = watch("src", {
-    persistent: true,
-  });
-
   const configBuild = Array.isArray(config.build)
     ? config.build
     : [config.build ?? {}];
 
-  watcher.on("change", () => devBuild(formatConfig(configBuild)));
+  watch(() => devBuild(formatConfig(configBuild)));
 }
 
 export default defineCommand({
