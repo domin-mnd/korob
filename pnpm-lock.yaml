@@ -10,10 +10,10 @@ dependencies:
     version: 1.6.3
   '@biomejs/js-api':
     specifier: 0.5.0
-    version: 0.5.0(@biomejs/wasm-nodejs@1.6.2)
+    version: 0.5.0(@biomejs/wasm-nodejs@1.6.4)
   '@biomejs/wasm-nodejs':
-    specifier: 1.6.2
-    version: 1.6.2
+    specifier: 1.6.4
+    version: 1.6.4
   chokidar:
     specifier: 3.6.0
     version: 3.6.0
@@ -151,7 +151,7 @@ packages:
     dev: false
     optional: true
 
-  /@biomejs/js-api@0.5.0(@biomejs/wasm-nodejs@1.6.2):
+  /@biomejs/js-api@0.5.0(@biomejs/wasm-nodejs@1.6.4):
     resolution: {integrity: sha512-H1G29hR7Y1fzVwqIC+7O8kyr/CWa2WNSHEKcAyVX8ams8UCJZyWxIqX50ytzY1BeKnXL5CedULmrXXptP8BZrQ==}
     peerDependencies:
       '@biomejs/wasm-bundler': ^1.6.1
@@ -165,11 +165,11 @@ packages:
       '@biomejs/wasm-web':
         optional: true
     dependencies:
-      '@biomejs/wasm-nodejs': 1.6.2
+      '@biomejs/wasm-nodejs': 1.6.4
     dev: false
 
-  /@biomejs/wasm-nodejs@1.6.2:
-    resolution: {integrity: sha512-pQu2bi4eIYAGa7r62AmBtso+v6ZVe0QITK3u2+rjQpN111II+KlSNW7lQJwBWRsi2Fdl6d9BKJDBHC8mrUChLw==}
+  /@biomejs/wasm-nodejs@1.6.4:
+    resolution: {integrity: sha512-elEdPr7zjbZwaKNVJepnU0FekSfmoykHPXjoFSF9khrOU7l5Uwy0ud1WSSzNEG5xaGT3ZgV3HVwUKyaAKnePSg==}
     dev: false
 
   /@domin-mnd/config@0.0.3:
