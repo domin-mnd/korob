@@ -11,6 +11,7 @@ export default defineConfig([
     minify: "terser",
     treeshake: "smallest",
     external: ["vitest", "typescript"],
+    noExternal: ["defu"],
     splitting: true,
     async onSuccess() {
       // beforeExit because onSuccess runs before dts is built

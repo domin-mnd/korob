@@ -32,7 +32,7 @@ export default defineCommand({
     description: "Build project files.",
   },
   async run() {
-    const config = (await load()).config ?? {};
+    const config = await load();
     return build(config);
   },
 });

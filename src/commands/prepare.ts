@@ -17,7 +17,7 @@ export default defineCommand({
     description: "Create config files for development environment.",
   },
   async run() {
-    const config = (await load()).config ?? {};
+    const config = await load();
     return prepare(config);
   },
 });

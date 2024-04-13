@@ -20,7 +20,7 @@ export default defineCommand({
     description: "Format project files.",
   },
   async run() {
-    const config = (await load()).config ?? {};
+    const config = await load();
     return format(config);
   },
 });

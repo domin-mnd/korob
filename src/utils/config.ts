@@ -1,11 +1,23 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { join as joinPath } from "node:path";
+import { pathToFileURL } from "node:url";
+import {
+  CACHE_DIR,
+  DEFAULT_CONFIG,
+  EXECUTABLE,
+} from "@/utils/constants";
+import { findup } from "@/utils/findup";
 import { join, stringify } from "@/utils/resolver";
 import { Biome, Distribution } from "@biomejs/js-api";
 import type { PartialConfiguration as BiomeConfig } from "@biomejs/wasm-nodejs";
-import biomeConfig from "@domin-mnd/config/biome";
-import { loadConfig } from "c12";
+import defu from "defu";
 import type { Config as PrettierConfig } from "prettier";
-import type { Format, Options as _TsupOptions } from "tsup";
+import {
+  type Format,
+  type Options as _TsupOptions,
+  build,
+} from "tsup";
 import type { InlineConfig as TestConfig } from "vitest";
 
 export interface BuildConfig
@@ -59,62 +71,59 @@ export interface Config extends KorobConfig {
   test?: TestConfig;
 }
 
-export async function load() {
-  const ignore = [
-    "biome.json",
-    ".prettierrc.json",
-    ".prettierignore",
-    "dist",
-    "bin",
-  ];
-  const biome = biomeConfig as BiomeConfig;
-
-  return loadConfig<Config>({
-    name: "korob",
-    cwd: ".",
-    dotenv: true,
-    packageJson: true,
-    defaultConfig: {
-      diagnostics: {
-        biome: {
-          ...biome,
-          $schema: "https://biomejs.dev/schemas/1.6.3/schema.json",
-          linter: {
-            ...biome.linter,
-            ignore,
-          },
-          formatter: {
-            ...biome.formatter,
-            ignore,
-          },
-        },
-        prettier: {
-          tabWidth: 2,
-          semi: true,
-        },
-      },
-      start: {
-        entry: "src/index.ts",
-        format: "cjs",
-        skipNodeModulesBundle: true,
-        dts: false,
-        sourcemap: false,
-        external: ["react", "react-dom"],
-        minify: false,
-      },
-      build: {
-        entry: ["src/index.ts"],
-        target: "node16",
-        outDir: "dist",
-        external: ["react", "react-dom"],
-      },
-      test: {
-        coverage: {
-          provider: "v8",
-        },
-      },
-    },
+async function loadPackageJson(cwd: string): Promise<Config> {
+  const packageJsonPath = await findup(cwd, path => {
+    const json = joinPath(path, "package.json");
+    if (existsSync(json)) return json;
   });
+  const pkgJson = packageJsonPath
+    ? JSON.parse(
+        (
+          await readFile(joinPath(process.cwd(), packageJsonPath))
+        ).toString(),
+      )
+    : {};
+  return "korob" in pkgJson ? pkgJson.korob : {};
+}
+
+async function compileConfig(path: string) {
+  const outDir = joinPath(CACHE_DIR, "config");
+
+  await build({
+    entry: {
+      [EXECUTABLE]: path,
+    },
+    outDir,
+    target: "esnext",
+    skipNodeModulesBundle: true,
+    format: ["cjs"],
+    silent: true,
+    dts: false,
+  });
+
+  const url = pathToFileURL(joinPath(outDir, "index.js"));
+  return (await import(url.toString())).default;
+}
+
+async function loadScript(cwd: string): Promise<Config> {
+  const scriptPath = await findup(cwd, path => {
+    const js = joinPath(path, "korob.config.js");
+    const ts = joinPath(path, "korob.config.ts");
+    if (existsSync(js)) return js;
+    if (existsSync(ts)) return ts;
+  });
+
+  const json = scriptPath
+    ? (await compileConfig(scriptPath)).default
+    : {};
+  return json;
+}
+
+const CWD = ".";
+export async function load() {
+  return (
+    defu(loadScript(CWD), loadPackageJson(CWD), DEFAULT_CONFIG) ?? {}
+  );
 }
 
 enum KillEvents {

@@ -1,7 +1,8 @@
 import { execSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
-import { join, normalize, resolve } from "node:path";
+import { join, resolve } from "node:path";
+import { findup } from "@/utils/findup";
 
 enum PackageManager {
   Npm = "npm",
@@ -39,22 +40,6 @@ export const packageManagers = [
     lockFile: "yarn.lock",
   },
 ];
-
-export async function findup<T>(
-  cwd: string,
-  match: (path: string) => T | Promise<T>,
-): Promise<T | undefined> {
-  const segments = normalize(cwd).split("/");
-
-  while (segments.length > 0) {
-    const path = segments.join("/") || "/";
-    const result = await match(path);
-
-    if (result) return result;
-
-    segments.pop();
-  }
-}
 
 export async function detectPackageManager(
   cwd: string = process.cwd(),

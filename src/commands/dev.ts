@@ -37,7 +37,7 @@ export default defineCommand({
     description: "Start development server.",
   },
   async run() {
-    const config = (await load()).config ?? {};
+    const config = await load();
     return dev(config);
   },
 });

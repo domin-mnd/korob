@@ -2,6 +2,7 @@ import { execSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { type Config, load } from "@/utils/config";
+import { CACHE_DIR, EXECUTABLE } from "@/utils/constants";
 import { hashFiles } from "@/utils/hash";
 import { defineCommand } from "citty";
 import consola from "consola";
@@ -43,10 +44,6 @@ function getExecutable(path: string, config: Config) {
   }
 }
 
-// It should create hash folder i.e. node_modules/.cache/korob/c692793f10d54ffe8c40cb435961f0f7/index.js
-const EXECUTABLE = "index";
-const CACHE_DIR = join(process.cwd(), "node_modules/.cache/korob");
-
 /**
  * Executes javascript/typescript files, similar to `korob start`.
  * @param {Config} config - General configuration object.
@@ -58,6 +55,7 @@ export async function start(config: Config = {}) {
   const hash = await hashFiles();
   const path = join(
     CACHE_DIR,
+    "start",
     config.start?.watch ? "watch" : hash,
     executable,
   );
@@ -89,7 +87,7 @@ export default defineCommand({
     },
   },
   async run({ args }) {
-    const config = (await load()).config ?? {};
+    const config = await load();
     argPath = args.path;
     return start(config);
   },

@@ -1,7 +1,6 @@
 import type { Config } from "@/utils/config";
-import { createDefineConfig } from "c12";
 
-export const defineConfig = createDefineConfig<Config>();
+export const defineConfig = (config: Config): Config => config;
 
 export type {
   Config,

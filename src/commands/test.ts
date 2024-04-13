@@ -27,7 +27,7 @@ export default defineCommand({
     description: "Test project files.",
   },
   async run() {
-    const config = (await load()).config ?? {};
+    const config = await load();
     return test(config);
   },
 });

@@ -23,7 +23,7 @@ export default defineCommand({
     description: "Lint project files.",
   },
   async run() {
-    const config = (await load()).config ?? {};
+    const config = await load();
     return lint(config);
   },
 });

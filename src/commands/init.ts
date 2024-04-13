@@ -75,7 +75,7 @@ export async function configInit() {
     "biome.json",
   ];
 
-  const config = (await load()).config ?? {};
+  const config = await load();
   await createConfig(config);
 
   consola.success(
