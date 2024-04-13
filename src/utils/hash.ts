@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import ignore from "ignore";
@@ -14,8 +14,12 @@ export function fileNames() {
     .map(file => join(file.path, file.name));
 
   const filteredFiles = ignore()
-    .add(readFileSync(".gitignore").toString())
-    .add([".git"])
+    .add(
+      existsSync(".gitignore")
+        ? readFileSync(".gitignore").toString()
+        : [],
+    )
+    .add([".git", "node_modules"])
     .filter(files);
   return filteredFiles;
 }
