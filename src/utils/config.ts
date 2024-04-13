@@ -8,10 +8,14 @@ import type { Config as PrettierConfig } from "prettier";
 import type { Format, Options as _TsupOptions } from "tsup";
 import type { InlineConfig as TestConfig } from "vitest";
 
-export type BuildConfig = Omit<
-  _TsupOptions,
-  "ignoreWatch" | "watch" | "silent"
->;
+export interface BuildConfig
+  extends Omit<_TsupOptions, "ignoreWatch" | "watch" | "silent"> {
+  /**
+   * Cache transpilation process.
+   * @default true
+   */
+  cache?: boolean;
+}
 
 export interface KorobConfig {
   /** `korob init` configuration. */
@@ -27,8 +31,14 @@ export interface KorobConfig {
 export interface StartConfig
   extends Omit<
     _TsupOptions,
-    "silent" | "entry" | "entryPoints" | "format"
+    "silent" | "entry" | "entryPoints" | "format" | "outDir"
   > {
+  /**
+   * Cache transpilation process.
+   * Applies to `korob build` only.
+   * @default true
+   */
+  cache?: boolean;
   entry?: string;
   format?: Format;
 }

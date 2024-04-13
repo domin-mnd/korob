@@ -1,9 +1,4 @@
-import {
-  type Config,
-  addKillEvent,
-  createConfig,
-  load,
-} from "@/utils/config";
+import { type Config, addKillEvent, load } from "@/utils/config";
 import { defineCommand } from "citty";
 import consola from "consola";
 

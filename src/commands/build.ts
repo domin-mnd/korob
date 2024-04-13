@@ -1,7 +1,7 @@
-import { type Config, createConfig, load } from "@/utils/config";
+import { cache } from "@/utils/cache";
+import { type Config, load } from "@/utils/config";
 import { consolePlugin } from "@/utils/console";
 import { defineCommand } from "citty";
-import { build as tsupBuild } from "tsup";
 
 /**
  * Builds the project, similar to `korob build`.
@@ -13,13 +13,16 @@ export async function build(config: Config = {}) {
   if (!Array.isArray(config.build))
     config.build = [config.build ?? {}];
 
-  config.build.forEach(value =>
-    tsupBuild({
-      ...value,
-      watch: false,
-      silent: true,
-      plugins: [...(value.plugins ?? []), consolePlugin],
-    }),
+  config.build.forEach(({ cache: shouldCache, ...config }) =>
+    cache(
+      {
+        ...config,
+        watch: false,
+        silent: true,
+        plugins: [...(config.plugins ?? []), consolePlugin],
+      },
+      shouldCache,
+    ),
   );
 }
 

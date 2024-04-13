@@ -1,8 +1,8 @@
 import { execSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { type Config, createConfig, load } from "@/utils/config";
-import { hashAll } from "@/utils/hash";
+import { type Config, load } from "@/utils/config";
+import { hashFiles } from "@/utils/hash";
 import { defineCommand } from "citty";
 import consola from "consola";
 import { build as tsupBuild } from "tsup";
@@ -55,11 +55,10 @@ const CACHE_DIR = join(process.cwd(), "node_modules/.cache/korob");
  */
 export async function start(config: Config = {}) {
   const { entry, executable } = entryPoint(config);
-  const hash = await hashAll();
+  const hash = await hashFiles();
   const path = join(
     CACHE_DIR,
-    hash,
-    config.start?.outDir ?? "",
+    config.start?.watch ? "watch" : hash,
     executable,
   );
   const executablePath = getExecutable(path, config);
@@ -70,11 +69,7 @@ export async function start(config: Config = {}) {
   await tsupBuild({
     ...config.start,
     entry,
-    outDir: join(
-      CACHE_DIR,
-      config.start?.watch ? "watch" : hash,
-      config.start?.outDir ?? "",
-    ),
+    outDir: join(CACHE_DIR, config.start?.watch ? "watch" : hash),
     silent: true,
     onSuccess: `node ${executablePath}`,
   });

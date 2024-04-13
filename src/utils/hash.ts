@@ -31,7 +31,7 @@ export async function update(path: string) {
   hash.update(content);
 }
 
-export async function hashAll() {
+export async function hashFiles() {
   const files = fileNames();
   for (const file of files) await update(file);
   return hash.digest("hex");

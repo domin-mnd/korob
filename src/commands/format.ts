@@ -1,4 +1,4 @@
-import { type Config, createConfig, load } from "@/utils/config";
+import { type Config, load } from "@/utils/config";
 import { run } from "@/utils/runner";
 import { defineCommand } from "citty";
 
