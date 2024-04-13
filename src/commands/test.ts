@@ -1,6 +1,7 @@
 import { type Config, addKillEvent, load } from "@/utils/config";
 import { defineCommand } from "citty";
 import consola from "consola";
+import { optionalDependencies } from "package.json";
 
 /**
  * Tests the project, similar to `korob test`.
@@ -16,7 +17,7 @@ export async function test(config: Config = {}) {
     addKillEvent(vitest?.close);
   } catch (_e) {
     consola.error(
-      "Vitest is not installed. Please install `vitest@1.4.0` for tests",
+      `Vitest is not installed. Please install \`vitest@${optionalDependencies.vitest}\` for tests`,
     );
   }
 }
