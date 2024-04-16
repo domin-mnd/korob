@@ -44,7 +44,7 @@ export const packageManagers = [
 export async function detectPackageManager(
   cwd: string = process.cwd(),
 ): Promise<PackageManager | undefined> {
-  const detected = await findup(resolve(cwd || "."), async path => {
+  const detected = await findup(resolve(cwd ?? "."), async path => {
     // 1. Use `packageManager` field from package.json
     const packageJSONPath = join(path, "package.json");
     if (existsSync(packageJSONPath)) {

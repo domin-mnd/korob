@@ -5,10 +5,11 @@ export async function findup<T>(
   cwd: string,
   match: (path: string) => T | Promise<T>,
 ): Promise<T | undefined> {
-  const segments = normalize(cwd).split("/");
+  const divider = process.platform === "win32" ? "\\" : "/";
+  const segments = normalize(cwd).split(divider);
 
   while (segments.length > 0) {
-    const path = segments.join("/") || "/";
+    const path = segments.join(divider) ?? divider;
     const result = await match(path);
 
     if (result) return result;
