@@ -94,12 +94,12 @@ export async function addDevDependency(dependencies: string[]) {
 
   switch (pm) {
     case PackageManager.Npm:
-      execSync(`npm install --save-dev ${deps}`);
+      return execSync(`npm install --save-dev ${deps}`);
     case PackageManager.Yarn:
-      execSync(`yarn add --dev ${deps}`);
+      return execSync(`yarn add --dev ${deps}`);
     case PackageManager.Pnpm:
-      execSync(`pnpm add --save-dev ${deps}`);
+      return execSync(`pnpm add --save-dev ${deps}`);
     case PackageManager.Bun:
-      execSync(`bun add --dev ${deps}`);
+      return execSync(`bun add --dev ${deps}`);
   }
 }
