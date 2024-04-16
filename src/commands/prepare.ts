@@ -1,5 +1,7 @@
 import { type Config, createConfig, load } from "@/utils/config";
 import { defineCommand } from "citty";
+import consola from "consola";
+import { colorize } from "consola/utils";
 
 /**
  * Creates config files for development environment purposes, similar to `korob prepare`.
@@ -18,6 +20,15 @@ export default defineCommand({
   },
   async run() {
     const config = await load();
-    return prepare(config);
+    await prepare(config);
+    const configFiles = [
+      "biome.json",
+      ".prettierrc.json",
+      ".prettierignore",
+    ];
+    consola.ready("Created configuration files!");
+    configFiles
+      .map(value => `${colorize("green", "+")} ${value}`)
+      .forEach(value => console.log(value));
   },
 });
