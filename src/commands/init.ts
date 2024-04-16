@@ -137,17 +137,17 @@ export async function dependencyInit() {
         {
           label: "@biomejs/biome",
           hint: "LSP server",
-          value: "@biomejs/biome@1.6.3",
+          value: "@biomejs/biome@1.6.4",
         },
         {
           label: "vitest",
           hint: "Tests",
-          value: "vitest@1.4.0",
+          value: "vitest@1.5.0",
         },
         {
           label: "typescript",
           hint: "Definition .d.ts build",
-          value: "typescript@5.4.4",
+          value: "typescript@5.4.5",
         },
       ],
     },
