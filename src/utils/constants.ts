@@ -22,7 +22,7 @@ export const DEFAULT_CONFIG = {
   diagnostics: {
     biome: {
       ...BIOME_CONFIG,
-      $schema: "https://biomejs.dev/schemas/1.6.3/schema.json",
+      $schema: "https://biomejs.dev/schemas/1.6.4/schema.json",
       linter: {
         ...BIOME_CONFIG.linter,
         ignore: BIOME_IGNORE,
