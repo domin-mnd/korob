@@ -53,13 +53,13 @@ function getExecutable(path: string, config: Config) {
 export async function start(config: Config = {}) {
   const { entry, executable } = entryPoint(config);
   const hash = await hashFiles();
-  const path = join(
+  const dirPath = join(
     CACHE_DIR,
     "start",
     config.start?.watch ? "watch" : hash,
-    executable,
   );
-  const executablePath = getExecutable(path, config);
+  const exePath = join(dirPath, executable);
+  const executablePath = getExecutable(exePath, config);
 
   if (existsSync(executablePath) && !config.start?.watch)
     return execSync(`node ${executablePath}`, { stdio: "inherit" });
@@ -67,7 +67,7 @@ export async function start(config: Config = {}) {
   await tsupBuild({
     ...config.start,
     entry,
-    outDir: join(CACHE_DIR, config.start?.watch ? "watch" : hash),
+    outDir: dirPath,
     silent: true,
     onSuccess: `node ${executablePath}`,
   });
