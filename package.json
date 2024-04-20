@@ -56,7 +56,6 @@
     "@biomejs/biome": "1.6.4",
     "@biomejs/js-api": "0.5.0",
     "@biomejs/wasm-nodejs": "1.6.4",
-    "chokidar": "3.6.0",
     "citty": "0.1.6",
     "consola": "3.2.3",
     "prettier": "3.2.5",

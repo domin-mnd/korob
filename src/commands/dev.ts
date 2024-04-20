@@ -1,7 +1,6 @@
 import { build } from "@/commands/build";
 import { type BuildConfig, type Config, load } from "@/utils/config";
 import { consolePlugin } from "@/utils/console";
-import { watch } from "@/utils/watcher";
 import { defineCommand } from "citty";
 import { build as tsupBuild } from "tsup";
 
@@ -11,7 +10,7 @@ const devBuild = async (build: BuildConfig[]) =>
 const formatConfig = (build: BuildConfig[]) =>
   build.map(value => ({
     ...value,
-    watch: false,
+    watch: true,
     silent: true,
     plugins: [...(value.plugins ?? []), consolePlugin],
   }));
@@ -23,12 +22,14 @@ const formatConfig = (build: BuildConfig[]) =>
  * @alpha
  */
 export async function dev(config: Config = {}) {
-  build(config);
+  const awaitable = build(config);
+
   const configBuild = Array.isArray(config.build)
     ? config.build
     : [config.build ?? {}];
 
-  watch(() => devBuild(formatConfig(configBuild)));
+  await awaitable;
+  await devBuild(formatConfig(configBuild));
 }
 
 export default defineCommand({
