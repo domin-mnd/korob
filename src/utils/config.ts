@@ -120,9 +120,13 @@ async function loadScript(cwd: string): Promise<Config> {
 }
 
 const CWD = ".";
-export async function load() {
+export async function load(): Promise<Config> {
   return (
-    defu(loadScript(CWD), loadPackageJson(CWD), DEFAULT_CONFIG) ?? {}
+    (defu(
+      await loadScript(CWD),
+      await loadPackageJson(CWD),
+      DEFAULT_CONFIG,
+    ) as Config) ?? {}
   );
 }
 
