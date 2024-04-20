@@ -11,6 +11,7 @@ tsup.config.ts
 turbo.json
 vite.config.ts
 .prettierignore
+renovate.json
 
 # Markdown
 CONTRIBUTING.md
