@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@biomejs/biome": "1.6.4",
-    "@biomejs/js-api": "0.5.0",
+    "@biomejs/js-api": "0.7.1",
     "@biomejs/wasm-nodejs": "1.6.4",
     "citty": "0.1.6",
     "consola": "3.2.3",

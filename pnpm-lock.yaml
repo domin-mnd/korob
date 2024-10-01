@@ -9,8 +9,8 @@ dependencies:
     specifier: 1.6.4
     version: 1.6.4
   '@biomejs/js-api':
-    specifier: 0.5.0
-    version: 0.5.0(@biomejs/wasm-nodejs@1.6.4)
+    specifier: 0.7.1
+    version: 0.7.1(@biomejs/wasm-nodejs@1.6.4)
   '@biomejs/wasm-nodejs':
     specifier: 1.6.4
     version: 1.6.4
@@ -148,12 +148,12 @@ packages:
     dev: false
     optional: true
 
-  /@biomejs/js-api@0.5.0(@biomejs/wasm-nodejs@1.6.4):
-    resolution: {integrity: sha512-H1G29hR7Y1fzVwqIC+7O8kyr/CWa2WNSHEKcAyVX8ams8UCJZyWxIqX50ytzY1BeKnXL5CedULmrXXptP8BZrQ==}
+  /@biomejs/js-api@0.7.1(@biomejs/wasm-nodejs@1.6.4):
+    resolution: {integrity: sha512-VFdgFFZWcyCQxZcAasyv8Enpexn4CblMdWmr6izLYHTLcbd+z9x/LuKU71qnmClABfnYqZjiY7c8DKTVri3Ajw==}
     peerDependencies:
-      '@biomejs/wasm-bundler': ^1.6.1
-      '@biomejs/wasm-nodejs': ^1.6.1
-      '@biomejs/wasm-web': ^1.6.1
+      '@biomejs/wasm-bundler': ^1.9.2
+      '@biomejs/wasm-nodejs': ^1.9.2
+      '@biomejs/wasm-web': ^1.9.2
     peerDependenciesMeta:
       '@biomejs/wasm-bundler':
         optional: true
