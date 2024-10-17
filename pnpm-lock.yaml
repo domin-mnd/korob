@@ -10,10 +10,10 @@ dependencies:
     version: 1.6.4
   '@biomejs/js-api':
     specifier: 0.5.0
-    version: 0.5.0(@biomejs/wasm-nodejs@1.6.4)
+    version: 0.5.0(@biomejs/wasm-nodejs@1.9.4)
   '@biomejs/wasm-nodejs':
-    specifier: 1.6.4
-    version: 1.6.4
+    specifier: 1.9.4
+    version: 1.9.4
   citty:
     specifier: 0.1.6
     version: 0.1.6
@@ -148,7 +148,7 @@ packages:
     dev: false
     optional: true
 
-  /@biomejs/js-api@0.5.0(@biomejs/wasm-nodejs@1.6.4):
+  /@biomejs/js-api@0.5.0(@biomejs/wasm-nodejs@1.9.4):
     resolution: {integrity: sha512-H1G29hR7Y1fzVwqIC+7O8kyr/CWa2WNSHEKcAyVX8ams8UCJZyWxIqX50ytzY1BeKnXL5CedULmrXXptP8BZrQ==}
     peerDependencies:
       '@biomejs/wasm-bundler': ^1.6.1
@@ -162,11 +162,11 @@ packages:
       '@biomejs/wasm-web':
         optional: true
     dependencies:
-      '@biomejs/wasm-nodejs': 1.6.4
+      '@biomejs/wasm-nodejs': 1.9.4
     dev: false
 
-  /@biomejs/wasm-nodejs@1.6.4:
-    resolution: {integrity: sha512-elEdPr7zjbZwaKNVJepnU0FekSfmoykHPXjoFSF9khrOU7l5Uwy0ud1WSSzNEG5xaGT3ZgV3HVwUKyaAKnePSg==}
+  /@biomejs/wasm-nodejs@1.9.4:
+    resolution: {integrity: sha512-ZqNlhKcZW6MW1LxWIOfh9YVrBykvzyFad3bOh6JJFraDnNa3NXboRDiaI8dmrbb0ZHXCU1Tsq6WQsKV2Vpp5dw==}
     dev: false
 
   /@domin-mnd/config@0.0.3:
