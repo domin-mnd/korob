@@ -1,6 +1,6 @@
 {
   "name": "korob",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Unified development toolchain",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -42,7 +42,7 @@
   "engines": {
     "node": ">=16"
   },
-  "homepage": "https://korob.domin.pro/",
+  "homepage": "https://korob.domin.lol/",
   "devDependencies": {
     "@domin-mnd/config": "^0.0.3",
     "@turbo/types": "^1.13.2",

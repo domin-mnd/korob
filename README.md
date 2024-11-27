@@ -19,7 +19,7 @@
   </p>
   <p align="center">
     <strong>
-      <code>&nbsp;<a href="https://korob.domin.pro/">Documentation</a>&nbsp;</code>
+      <code>&nbsp;<a href="https://korob.domin.lol/">Documentation</a>&nbsp;</code>
     </strong>
   </p>
 </div>
