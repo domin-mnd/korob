@@ -53,7 +53,7 @@
     "turbo": "^1.13.2"
   },
   "dependencies": {
-    "@biomejs/biome": "1.6.4",
+    "@biomejs/biome": "1.9.4",
     "@biomejs/js-api": "0.5.0",
     "@biomejs/wasm-nodejs": "1.6.4",
     "citty": "0.1.6",
