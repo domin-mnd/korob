@@ -58,7 +58,7 @@
     "@biomejs/wasm-nodejs": "1.6.4",
     "citty": "0.1.6",
     "consola": "3.2.3",
-    "prettier": "3.2.5",
+    "prettier": "3.5.3",
     "tsup": "8.0.2"
   },
   "optionalDependencies": {
