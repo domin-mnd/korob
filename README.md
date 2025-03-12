@@ -1,3 +1,6 @@
+> [!WARNING]
+> In 2024, we witnessed a transformative period for JavaScript development - a year marked by significant improvements in DX that reshaped the way we build and deploy applications. Over time, the JavaScript ecosystem has continued to evolve rapidly, driven by new technologies and paradigms that streamline workflows and enhance performance. Things have changed a lot since then. With the release of [bun](https://bun.sh/), [oxc](https://oxc.rs/) and others the need for korob has been greatly reduced. Korob will no longer receive updates or active maintenance. I recommend migrating to [bun](https://bun.sh/) as soon as possible to take advantage of the latest features and improvements.
+
 <p align="center">
   <img alt="korob" src="public/korob.svg" width="100" />
 </p>
